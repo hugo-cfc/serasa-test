@@ -1,7 +1,13 @@
 import { ButtonHTMLAttributes, ReactNode, Ref, forwardRef } from "react";
 import { button } from "./style";
 
-type variants = "filledDefault" | "outlined" | "text" | "filledWarning" | "outlinedWarning" | "warningTextButton";
+type variants =
+  | "filledDefault"
+  | "outlined"
+  | "text"
+  | "filledWarning"
+  | "outlinedWarning"
+  | "warningTextButton";
 
 type spacings = "sm" | "base" | "lg";
 
@@ -11,10 +17,15 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   spacing?: spacings | undefined;
 }
 
-// eslint-disable-next-line react/display-name
 const Button = forwardRef(
   (
-    { children, className, variant = "filledDefault", spacing = "base", ...rest }: ButtonProps,
+    {
+      children,
+      className,
+      variant = "filledDefault",
+      spacing = "base",
+      ...rest
+    }: ButtonProps,
     ref: Ref<HTMLButtonElement>
   ) => {
     const finalStyle = `${button({
