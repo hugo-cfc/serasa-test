@@ -15,7 +15,10 @@ const Profile = () => {
         {/* {user?.name.substring(0, 1)} */}A
       </div>
 
-      <LucideLogOut className="cursor-pointer transition-all hover:brightness-50" onClick={handleLogout} />
+      <LucideLogOut
+        className="cursor-pointer transition-all hover:brightness-50"
+        onClick={handleLogout}
+      />
     </div>
   );
 };
