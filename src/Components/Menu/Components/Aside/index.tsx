@@ -12,7 +12,9 @@ const Aside = () => {
 
   return (
     <aside
-      className={`bg-white shrink-0 text-textColors-dark-primary w-40 h-[calc(100vh-56px)] p-4 border border-gray-300 notebook:w-56`}
+      className={
+        "bg-white shrink-0 text-textColors-dark-primary hidden tablet:block h-[calc(100vh-56px)] p-4 border border-gray-300 notebook:w-56"
+      }
     >
       <nav>
         <ul className="space-y-2 list-disc">
