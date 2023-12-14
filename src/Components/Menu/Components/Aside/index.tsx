@@ -8,7 +8,6 @@ import sidebarRoutes from "./sidebarRoutes";
 const Aside = () => {
   const pathname = usePathname();
   const firstPathname = pathname.split("/")[1];
-  const pathnameRegex = new RegExp(`(${firstPathname})`);
 
   return (
     <aside
@@ -19,7 +18,7 @@ const Aside = () => {
       <nav>
         <ul className="space-y-2 list-disc">
           {sidebarRoutes.map((item) => {
-            const finalPathname = !firstPathname ? "/" : pathnameRegex;
+            const finalPathname = !firstPathname ? "/" : `/${firstPathname}`;
 
             return (
               <Link key={item.id} href={item.route}>
