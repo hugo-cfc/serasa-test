@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   useParams,
   usePathname,
@@ -26,6 +26,8 @@ const useFormHook = () => {
   const { id }: { id: string } = useParams();
   const pathname = usePathname();
 
+  const [crops, setCrops] = useState<string[]>([]);
+
   const { data } = useQuery("producer", () => getProducerById(id));
   const farmId = data?.farms[0].id;
   const mutation = useMutation<
@@ -46,8 +48,16 @@ const useFormHook = () => {
 
       router.push("/produtores");
     },
+
+    onError: () => {
+      enqueueSnackbar({
+        variant: "error",
+        message: "Erro ao alterar produtor!",
+      });
+    },
   });
 
+  const isCreate = searchParams.has("create");
   const isEdit = searchParams.has("edit");
 
   const schema = z.object({
@@ -70,9 +80,7 @@ const useFormHook = () => {
     vegetationArea: z
       .number()
       .min(1, { message: "Informe a área de vegetação em hectares" }),
-    // plantedCrops: z
-    //   .string()
-    //   .min(1, { message: "Informe as culturas plantadas" }),
+    plantedCrops: z.array(z.string()).nonempty({ message: "Escolha pelo menos uma opção"})
   });
 
   const {
@@ -81,6 +89,7 @@ const useFormHook = () => {
     control,
     reset,
     formState: { errors },
+    setValue,
   } = useForm<FormProps>({
     mode: "all",
     resolver: zodResolver(schema),
@@ -89,6 +98,8 @@ const useFormHook = () => {
   type FormProps = z.infer<typeof schema>;
 
   useEffect(() => {
+    if (isCreate) return;
+
     reset({
       name: data?.name,
       cpfcnpj: formatCpf(String(data?.cpfcnpj)),
@@ -98,8 +109,11 @@ const useFormHook = () => {
       area: data?.farms[0].area,
       arableArea: data?.farms[0].arableArea,
       vegetationArea: data?.farms[0].vegetationArea,
+      plantedCrops: data?.farms[0].plantedCrops
     });
-  }, [data]);
+
+    setCrops(data?.farms[0].plantedCrops || []);
+  }, [data, isCreate]);
 
   const handleEdit = useCallback(() => {
     const queryParams = new URLSearchParams(searchParams.toString());
@@ -110,11 +124,30 @@ const useFormHook = () => {
 
   const handleDelete = useCallback(() => {}, []);
 
+  const handleAddCrop = (crop: string) => {
+    if (crops?.includes(crop)) {
+      const newCropsArray = crops.filter(existingCrop => existingCrop !== crop);
+
+      setCrops(() => {
+        setValue("plantedCrops", newCropsArray as [string, ...string[]]);
+        return newCropsArray;
+      });
+    } else {
+      setCrops((prevState) => {
+        const newCropsArray = [crop, ...prevState];
+        setValue("plantedCrops", newCropsArray as [string, ...string[]]);
+        return newCropsArray;
+      });
+    }
+  };
+
   const handleForm = async (data: FormProps) => {
     const finalData = { ...data, farmId };
 
     mutation.mutate({ id, data: finalData });
   };
+
+  const cropsOptions = ["Soja", "Milho", "Algodão", "Café", "Cana de Açucar"];
 
   const formUtils = {
     schema,
@@ -123,6 +156,9 @@ const useFormHook = () => {
     handleSubmit,
     control,
     errors,
+    cropsOptions,
+    handleAddCrop,
+    crops
   };
 
   return { formUtils, router, isEdit, handleEdit, handleDelete, data };

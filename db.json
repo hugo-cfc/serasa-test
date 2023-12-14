@@ -27,7 +27,6 @@
       "arableArea": 5000,
       "vegetationArea": 5000,
       "plantedCrops": [
-        "Soja",
         "Milho"
       ]
     }

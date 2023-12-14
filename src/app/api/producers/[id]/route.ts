@@ -53,7 +53,7 @@ export async function PATCH(req: NextRequest,
       area: body.data.area,
       arableArea: body.data.arableArea,
       vegetationArea: body.data.vegetationArea,
-      // plantedCrops: body.data.plantedCrops,
+      plantedCrops: body.data.plantedCrops,
     }),
   });
 

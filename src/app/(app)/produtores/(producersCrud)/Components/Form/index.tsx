@@ -8,10 +8,12 @@ import useFormHook from "./useFormHook";
 import DataCard from "@/Components/DataCard";
 import formatCpf from "@/utils/formatCpf";
 import formatCnpj from "@/utils/formatCnpj";
+import { InfiniteDropdown } from "@/Components/InfiniteDropdown";
 
 const Form = () => {
   const { formUtils, router, isEdit, handleEdit, handleDelete } = useFormHook();
-  const { handleSubmit, handleForm, register, errors } = formUtils;
+  const { handleSubmit, handleForm, register, errors, cropsOptions, handleAddCrop, crops } =
+    formUtils;
 
   return (
     <DataCard className="desktop:w-[80vw]">
@@ -129,14 +131,20 @@ const Form = () => {
           helperText={errors.vegetationArea?.message}
         />
 
-        {/* <Input
-          disabled={!isEdit}
-          containerStyle="col-start-1 tablet:col-start-7 col-end-13 notebook:col-start-10 notebook:col-end-13"
-          {...register("plantedCrops")}
+        <InfiniteDropdown.Root
           label="Culturas plantadas"
-          type="text"
-          helperText={errors.plantedCrops?.message}
-        /> */}
+          placeholder="Selecionar"
+          value={crops}
+          containerStyle="col-start-1 tablet:col-start-7 col-end-13 notebook:col-start-10 notebook:col-end-13"
+          onClickValue={handleAddCrop}
+          readonly={!isEdit}
+        >
+          {cropsOptions.map((item) => (
+            <InfiniteDropdown.Item key={item} onClick={() => handleAddCrop(item)}>
+              {item}
+            </InfiniteDropdown.Item>
+          ))}
+        </InfiniteDropdown.Root>
 
         <div className="col-start-1 col-end-13 flex justify-start gap-x-2 mt-4">
           <Button type="submit" variant="filledSecondary" disabled={!isEdit}>

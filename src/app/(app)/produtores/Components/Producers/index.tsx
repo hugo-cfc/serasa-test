@@ -52,7 +52,7 @@ const Producers = () => {
                 className="cursor-pointer"
                 onClick={() => router.push(`/produtores/${producer.id}`)}
               >
-                {formatCpf(producer.cpf)}
+                {formatCpf(producer.cpfcnpj)}
               </Table.Td>
               <Table.Td>{producer.farms[0].farmName}</Table.Td>
               <Table.Td>{producer.farms[0].city}</Table.Td>

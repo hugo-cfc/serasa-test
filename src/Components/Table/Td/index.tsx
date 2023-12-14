@@ -9,7 +9,7 @@ const Td = ({ children, className, isLoading, ...rest }: TdProps) => {
 
   return isLoading ? (
     <td
-      className="bg-slate-300 h-6 animate-pulse border-2 border-x-white"
+      className="bg-slate-200 h-6 animate-pulse border-4 border-white"
       {...rest}
     />
   ) : (
