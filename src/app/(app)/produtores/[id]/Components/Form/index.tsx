@@ -4,17 +4,36 @@ import Input from "@/Components/Input";
 import Button from "@/Components/Button";
 
 import useFormHook from "./useFormHook";
+
 import DataCard from "@/app/(app)/produtores/Components/DataCard";
 import formatCpf from "@/utils/formatCpf";
 import formatCnpj from "@/utils/formatCnpj";
 
 const Form = () => {
-  const { formUtils, router } = useFormHook();
+  const { formUtils, router, isEdit, handleEdit, handleDelete } = useFormHook();
   const { handleSubmit, handleForm, register, errors } = formUtils;
 
   return (
     <DataCard className="desktop:w-[80vw]">
-      <h1 className="tablet:text-xl font-bold mb-2 min-w-[80vw]">Produtores</h1>
+      <div className="flex justify-between items-center">
+        <h1 className="tablet:text-xl font-bold mb-2">Produtores</h1>
+
+        <div className="flex gap-x-2">
+          {!isEdit && (
+            <Button
+              variant="filledSecondary"
+              type="button"
+              onClick={handleEdit}
+            >
+              Editar
+            </Button>
+          )}
+
+          <Button variant="filledWarning" type="button" onClick={handleDelete}>
+            Excluir
+          </Button>
+        </div>
+      </div>
 
       <form
         className="grid grid-cols-12 gap-x-2 gap-y-2"
@@ -25,6 +44,7 @@ const Form = () => {
         </h2>
 
         <Input
+          disabled={!isEdit}
           containerStyle="col-start-1 col-end-13 tablet:col-end-8"
           {...register("name")}
           label="Nome"
@@ -33,6 +53,7 @@ const Form = () => {
         />
 
         <Input
+          disabled={!isEdit}
           containerStyle="tablet:col-start-8 col-start-1 col-end-13 notebook:col-end-11"
           {...register("cpf")}
           label="CPF ou CNPJ"
@@ -56,6 +77,7 @@ const Form = () => {
         </h2>
 
         <Input
+          disabled={!isEdit}
           containerStyle="col-start-1 col-end-13 notebook:col-end-7"
           {...register("farmName")}
           label="Nome da Fazenda"
@@ -63,6 +85,7 @@ const Form = () => {
           helperText={errors.farmName?.message}
         />
         <Input
+          disabled={!isEdit}
           containerStyle="col-start-1 col-end-8 notebook:col-start- notebook:col-end-11"
           {...register("city")}
           label="Cidade"
@@ -71,6 +94,7 @@ const Form = () => {
         />
 
         <Input
+          disabled={!isEdit}
           containerStyle="col-start-8 col-end-13 tablet:col-end-11 notebook:col-start-11 notebook:col-end-13"
           {...register("state")}
           label="Estado"
@@ -79,6 +103,7 @@ const Form = () => {
         />
 
         <Input
+          disabled={!isEdit}
           containerStyle="col-start-1 col-end-13 tablet:col-end-7 notebook:col-end-4"
           {...register("area")}
           label="Área total em hectares"
@@ -87,6 +112,7 @@ const Form = () => {
         />
 
         <Input
+          disabled={!isEdit}
           containerStyle="col-start-1 tablet:col-start-7 col-end-13 notebook:col-start-4 notebook:col-end-7"
           {...register("arableArea")}
           label="Área agricultável em hectares"
@@ -95,6 +121,7 @@ const Form = () => {
         />
 
         <Input
+          disabled={!isEdit}
           containerStyle="col-start-1 col-end-13 tablet:col-end-7 notebook:col-start-7 notebook:col-end-10"
           {...register("vegetationArea")}
           label="Área de vegetação em hectares"
@@ -103,6 +130,7 @@ const Form = () => {
         />
 
         <Input
+          disabled={!isEdit}
           containerStyle="col-start-1 tablet:col-start-7 col-end-13 notebook:col-start-10 notebook:col-end-13"
           {...register("plantedCrops")}
           label="Culturas plantadas"
@@ -111,7 +139,9 @@ const Form = () => {
         />
 
         <div className="col-start-1 col-end-13 flex justify-start gap-x-2 mt-4">
-          <Button type="submit">Confirmar</Button>
+          <Button type="submit" variant="filledSecondary" disabled={!isEdit}>
+            Confirmar
+          </Button>
 
           <Button
             variant="filledWarning"

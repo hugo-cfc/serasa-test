@@ -1,4 +1,5 @@
-import { useRouter } from "next/navigation";
+import { useCallback } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSnackbar } from "notistack";
@@ -10,6 +11,10 @@ import isCnpjValid from "@/utils/isValidCnpj";
 const useLogin = () => {
   const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+
+  const isEdit = searchParams.has("edit");
 
   const schema = z.object({
     name: z.string().min(6, { message: "Digite o nome completo" }),
@@ -45,6 +50,15 @@ const useLogin = () => {
 
   type FormProps = z.infer<typeof schema>;
 
+  const handleEdit = useCallback(() => {
+    const queryParams = new URLSearchParams(searchParams.toString());
+    queryParams.set("edit", "");
+
+    router.push(`${pathname}?${queryParams}`);
+  }, [searchParams, pathname]);
+
+  const handleDelete = useCallback(() => {}, []);
+
   const handleForm = async (data: FormProps) => {
     router.push("/");
   };
@@ -58,7 +72,7 @@ const useLogin = () => {
     errors,
   };
 
-  return { formUtils, router };
+  return { formUtils, router, isEdit, handleEdit, handleDelete };
 };
 
 export default useLogin;

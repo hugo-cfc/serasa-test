@@ -44,13 +44,13 @@ const Producers = () => {
             <Table.Tr key={producer.id}>
               <Table.Td
                 className="cursor-pointer"
-                onClick={() => router.push("/produtores/384793")}
+                onClick={() => router.push(`/produtores/${producer.id}`)}
               >
                 {producer.name}
               </Table.Td>
               <Table.Td
                 className="cursor-pointer"
-                onClick={() => router.push("/produtores/384793")}
+                onClick={() => router.push(`/produtores/${producer.id}`)}
               >
                 {formatCpf(producer.cpf)}
               </Table.Td>
@@ -60,7 +60,9 @@ const Producers = () => {
               <Table.Td>
                 <div className="flex">
                   <button
-                    onClick={() => router.push("/produtores/384793?edit")}
+                    onClick={() =>
+                      router.push(`/produtores/${producer.id}?edit`)
+                    }
                   >
                     <Edit className="text-sm w-5" />
                   </button>
