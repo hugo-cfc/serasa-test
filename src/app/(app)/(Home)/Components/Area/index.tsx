@@ -1,4 +1,4 @@
-import DataCard from "../DataCard";
+import DataCard from "../../../produtores/Components/DataCard";
 
 const Area = () => {
   return (
