@@ -1,6 +1,6 @@
 import PieChart from "../PieChart";
 
-const ByCulture = () => {
+const ByCrops = () => {
   return (
     <PieChart
       title="Fazendas por cultura"
@@ -10,4 +10,4 @@ const ByCulture = () => {
   );
 };
 
-export default ByCulture;
+export default ByCrops;
