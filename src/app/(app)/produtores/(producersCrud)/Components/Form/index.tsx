@@ -5,7 +5,7 @@ import Button from "@/Components/Button";
 
 import useFormHook from "./useFormHook";
 
-import DataCard from "@/app/(app)/produtores/Components/DataCard";
+import DataCard from "@/Components/DataCard";
 import formatCpf from "@/utils/formatCpf";
 import formatCnpj from "@/utils/formatCnpj";
 
@@ -16,7 +16,7 @@ const Form = () => {
   return (
     <DataCard className="desktop:w-[80vw]">
       <div className="flex justify-between items-center">
-        <h1 className="tablet:text-xl font-bold mb-2">Produtores</h1>
+        <h1 className="tablet:text-xl font-bold mb-2">Produtor</h1>
 
         <div className="flex gap-x-2">
           {!isEdit && (
@@ -55,16 +55,16 @@ const Form = () => {
         <Input
           disabled={!isEdit}
           containerStyle="tablet:col-start-8 col-start-1 col-end-13 notebook:col-end-11"
-          {...register("cpf")}
+          {...register("cpfcnpj")}
           label="CPF ou CNPJ"
           type="text"
-          helperText={errors.cpf?.message}
+          helperText={errors.cpfcnpj?.message}
           onChange={(event) => {
             const { value } = event.target;
 
             if (value.length === 0) return "";
 
-            if (value.length > 11) {
+            if (value.length > 14) {
               return (event.target.value = formatCnpj(value)!);
             }
 
@@ -129,14 +129,14 @@ const Form = () => {
           helperText={errors.vegetationArea?.message}
         />
 
-        <Input
+        {/* <Input
           disabled={!isEdit}
           containerStyle="col-start-1 tablet:col-start-7 col-end-13 notebook:col-start-10 notebook:col-end-13"
           {...register("plantedCrops")}
           label="Culturas plantadas"
           type="text"
           helperText={errors.plantedCrops?.message}
-        />
+        /> */}
 
         <div className="col-start-1 col-end-13 flex justify-start gap-x-2 mt-4">
           <Button type="submit" variant="filledSecondary" disabled={!isEdit}>

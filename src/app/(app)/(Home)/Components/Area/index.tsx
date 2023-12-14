@@ -1,5 +1,5 @@
 import getFarms from "@/fetchers/farms/getFarms";
-import DataCard from "../../../produtores/Components/DataCard";
+import DataCard from "../../../../../Components/DataCard";
 
 const Area = async () => {
   const farms = await getFarms();

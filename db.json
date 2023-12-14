@@ -3,7 +3,17 @@
     {
       "id": 1,
       "name": "Hugo Cesar Firmino Costa",
-      "cpf": "11111111111"
+      "cpfcnpj": "93773196091",
+      "farms": [
+        {
+          "farmName": "Fazenda Colheitas",
+          "city": "Maceió",
+          "state": "AL",
+          "area": 5000,
+          "arableArea": 5000,
+          "vegetationArea": 5000
+        }
+      ]
     }
   ],
   "farms": [
@@ -16,7 +26,10 @@
       "area": 5000,
       "arableArea": 5000,
       "vegetationArea": 5000,
-      "plantedCrops": ["Soja", "Milho"]
+      "plantedCrops": [
+        "Soja",
+        "Milho"
+      ]
     }
   ],
   "admins": [

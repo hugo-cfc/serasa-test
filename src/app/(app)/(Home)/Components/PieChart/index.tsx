@@ -3,7 +3,7 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Pie } from "react-chartjs-2";
 
-import DataCard from "../../../produtores/Components/DataCard";
+import DataCard from "@/Components/DataCard";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
