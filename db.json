@@ -1,0 +1,42 @@
+{
+  "producers": [
+    {
+      "id": 1,
+      "name": "Hugo Cesar Firmino Costa",
+      "cpf": "11111111111"
+    }
+  ],
+  "farms": [
+    {
+      "id": 1,
+      "producerId": 1,
+      "farmName": "Fazenda Colheitas",
+      "city": "Maceió",
+      "state": "AL",
+      "area": 5000,
+      "arableArea": 5000,
+      "vegetationArea": 5000,
+      "plantedCrops": ["Soja", "Milho"]
+    }
+  ],
+  "admins": [
+    {
+      "id": 1,
+      "name": "Hugo Cesar Firmino Costa",
+      "email": "hugocfc98@gmail.com",
+      "password": "123456"
+    },
+    {
+      "id": 2,
+      "name": "João Cesar Firmino Costa",
+      "email": "joaocfc98@gmail.com",
+      "password": "123456"
+    },
+    {
+      "id": 3,
+      "name": "Fabio Cesar Firmino Costa",
+      "email": "fabiocfc98@gmail.com",
+      "password": "123456"
+    }
+  ]
+}
