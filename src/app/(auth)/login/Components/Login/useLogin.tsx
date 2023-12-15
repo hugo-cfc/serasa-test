@@ -2,7 +2,10 @@ import { useRouter } from "next/navigation";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSnackbar } from "notistack";
+import { setCookie } from "nookies";
 import { useForm } from "react-hook-form";
+
+import postLogin from "@/fetchers/auth/postLogin";
 
 const useLogin = () => {
   const { enqueueSnackbar } = useSnackbar();
@@ -23,7 +26,20 @@ const useLogin = () => {
   type FormProps = z.infer<typeof schema>;
 
   const handleForm = async (data: FormProps) => {
-    router.push("/");
+    postLogin(data)
+      .then((response) => {
+        const { token } = response;
+
+        setCookie(undefined, "serasa-test.token", token);
+
+        router.push("/");
+      })
+      .catch(() => {
+        enqueueSnackbar({
+          variant: "error",
+          message: "Erro ao fazer o login, verifique seu usuário",
+        });
+      });
   };
 
   const formUtils = {

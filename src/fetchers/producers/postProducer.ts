@@ -2,12 +2,12 @@ import { fetchWrapper } from "@/services/fetchWrapper";
 
 import Producer from "@/types/Producer";
 
-interface PatchProducerData {
+interface PostProducerData {
   data: Partial<Producer>;
 }
 
-const postProducer = async ({ data }: PatchProducerData) => {
-  const res = await fetchWrapper<{data: Producer}>( "/producers", {
+const postProducer = async ({ data }: PostProducerData) => {
+  const res = await fetchWrapper<{ data: Producer }>("/producers", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

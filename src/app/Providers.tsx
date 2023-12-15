@@ -3,6 +3,7 @@
 import { ReactNode } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { SnackbarProvider } from "notistack";
+import { AuthContextProvider } from "./Context/AuthContext";
 
 interface ProvidersProps {
   children: ReactNode;
@@ -20,7 +21,11 @@ const Providers = ({ children }: ProvidersProps) => {
       }}
       autoHideDuration={5000}
     >
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      <AuthContextProvider>
+        <QueryClientProvider client={queryClient}>
+          {children}
+        </QueryClientProvider>
+      </AuthContextProvider>
     </SnackbarProvider>
   );
 };
