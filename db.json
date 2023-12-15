@@ -1,7 +1,7 @@
 {
   "producers": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Hugo Cesar Firmino Costa",
       "cpfcnpj": "93773196091",
       "farms": [
@@ -34,12 +34,17 @@
       "id": "1b69982b-76b5-4a49-8ed8-2077c201a313",
       "name": "Fernadno Cesar Firmino Costa",
       "cpfcnpj": "937.731.960-91"
+    },
+    {
+      "id": "b7e13071-9cb5-463e-9b56-aa826c91f677",
+      "name": "Ulitmo Cesar Firmino Costa",
+      "cpfcnpj": "937.731.960-91"
     }
   ],
   "farms": [
     {
-      "id": 1,
-      "producerId": 1,
+      "id": "1",
+      "producerId": "1",
       "farmName": "Fazenda Colheitas",
       "city": "Maceió",
       "state": "AL",
@@ -56,9 +61,9 @@
       "farmName": "Fazenda De Santa",
       "city": "Maceió",
       "state": "AL",
-      "area": "5000",
-      "arableArea": "2500",
-      "vegetationArea": "2500",
+      "area": 5000,
+      "arableArea": 2500,
+      "vegetationArea": 2500,
       "plantedCrops": [
         "Café",
         "Algodão",
@@ -71,9 +76,9 @@
       "farmName": "Fazenda do Erro",
       "city": "Maceió",
       "state": "AL",
-      "area": "3000",
-      "arableArea": "1500",
-      "vegetationArea": "1500",
+      "area": 3000,
+      "arableArea": 1500,
+      "vegetationArea": 1500,
       "plantedCrops": [
         "Soja"
       ]
@@ -84,9 +89,9 @@
       "farmName": "Fazenda State",
       "city": "Maceió",
       "state": "AM",
-      "area": "5000",
-      "arableArea": "2500",
-      "vegetationArea": "2500",
+      "area": 5000,
+      "arableArea": 2500,
+      "vegetationArea": 2500,
       "plantedCrops": [
         "Algodão",
         "Soja"
@@ -98,12 +103,26 @@
       "farmName": "Fazenda Paulista",
       "city": "Campinas",
       "state": "SP",
-      "area": "5000",
-      "arableArea": "2500",
-      "vegetationArea": "2500",
+      "area": 5000,
+      "arableArea": 2500,
+      "vegetationArea": 2500,
       "plantedCrops": [
         "Algodão",
         "Soja"
+      ]
+    },
+    {
+      "id": "88d6d86e-ef3d-40f5-b4e3-28998cded5ea",
+      "producerId": "b7e13071-9cb5-463e-9b56-aa826c91f677",
+      "farmName": "Fazenda das Últimas",
+      "city": "Maceió",
+      "state": "AL",
+      "area": 5000,
+      "arableArea": 2500,
+      "vegetationArea": 2500,
+      "plantedCrops": [
+        "Algodão",
+        "Milho"
       ]
     }
   ],

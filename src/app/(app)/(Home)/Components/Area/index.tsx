@@ -10,11 +10,12 @@ const Area = async () => {
     return accumulator + area;
   }, 0);
 
+
   return (
     <DataCard className="flex-1">
       <h3 className="font-bold text-center">Hectares (Área total)</h3>
 
-      <p className="text-3xl text-center">{totalArea}</p>
+      <p className="text-3xl text-center">{totalArea}ha</p>
     </DataCard>
   );
 };
