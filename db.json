@@ -14,6 +14,11 @@
           "vegetationArea": 5000
         }
       ]
+    },
+    {
+      "id": "e3964089-2a6f-4ca0-95e8-d9e051f0b248",
+      "name": "Hugo Cesar Firmino Costa",
+      "cpfcnpj": "937.731.960-91"
     }
   ],
   "farms": [
@@ -28,6 +33,16 @@
       "vegetationArea": 5000,
       "plantedCrops": [
         "Milho"
+      ]
+    },
+    {
+      "id": "5034b07c-ddec-4a67-912e-372b940397fd",
+      "producerId": "e3964089-2a6f-4ca0-95e8-d9e051f0b248",
+      "farmName": "Hugo Cesar Firmino Costa",
+      "city": "Maceió",
+      "state": "AL",
+      "plantedCrops": [
+        "Soja"
       ]
     }
   ],

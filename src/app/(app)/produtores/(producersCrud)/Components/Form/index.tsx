@@ -11,9 +11,17 @@ import formatCnpj from "@/utils/formatCnpj";
 import { InfiniteDropdown } from "@/Components/InfiniteDropdown";
 
 const Form = () => {
-  const { formUtils, router, isEdit, handleEdit, handleDelete } = useFormHook();
-  const { handleSubmit, handleForm, register, errors, cropsOptions, handleAddCrop, crops } =
-    formUtils;
+  const { formUtils, router, isEdit, isCreate, handleEdit, handleDelete } =
+    useFormHook();
+  const {
+    handleSubmit,
+    handleForm,
+    register,
+    errors,
+    cropsOptions,
+    handleAddCrop,
+    crops,
+  } = formUtils;
 
   return (
     <DataCard className="desktop:w-[80vw]">
@@ -31,9 +39,15 @@ const Form = () => {
             </Button>
           )}
 
-          <Button variant="filledWarning" type="button" onClick={handleDelete}>
-            Excluir
-          </Button>
+          {!isCreate && (
+            <Button
+              variant="filledWarning"
+              type="button"
+              onClick={handleDelete}
+            >
+              Excluir
+            </Button>
+          )}
         </div>
       </div>
 
@@ -104,12 +118,12 @@ const Form = () => {
           helperText={errors.state?.message}
         />
 
-        <Input
+        {/* <Input
           disabled={!isEdit}
           containerStyle="col-start-1 col-end-13 tablet:col-end-7 notebook:col-end-4"
           {...register("area")}
           label="Área total em hectares"
-          type="text"
+          type="number"
           helperText={errors.area?.message}
         />
 
@@ -129,7 +143,7 @@ const Form = () => {
           label="Área de vegetação em hectares"
           type="text"
           helperText={errors.vegetationArea?.message}
-        />
+        /> */}
 
         <InfiniteDropdown.Root
           label="Culturas plantadas"
@@ -140,7 +154,10 @@ const Form = () => {
           readonly={!isEdit}
         >
           {cropsOptions.map((item) => (
-            <InfiniteDropdown.Item key={item} onClick={() => handleAddCrop(item)}>
+            <InfiniteDropdown.Item
+              key={item}
+              onClick={() => handleAddCrop(item)}
+            >
               {item}
             </InfiniteDropdown.Item>
           ))}

@@ -19,6 +19,7 @@ export async function PATCH(req: NextRequest,
   { params }: { params: { id: string } }) {
   const producerId = params.id;
   const body = await req.json();
+
   const updateRes = await fetch(`http://localhost:4000/producers/${producerId}`, {
     method: "PATCH",
     headers: {
@@ -35,7 +36,7 @@ export async function PATCH(req: NextRequest,
           area: body.data.area,
           arableArea: body.data.arableArea,
           vegetationArea: body.data.vegetationArea,
-          // plantedCrops: body.data.plantedCrops,
+          plantedCrops: body.data.plantedCrops,
         }
       ]
     }),
