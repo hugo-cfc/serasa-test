@@ -51,9 +51,7 @@
       "area": 5000,
       "arableArea": 5000,
       "vegetationArea": 5000,
-      "plantedCrops": [
-        "Milho"
-      ]
+      "plantedCrops": ["Milho"]
     },
     {
       "id": "86636bd6-dbbf-47be-b1e0-30deeece5cbe",
@@ -64,11 +62,7 @@
       "area": 5000,
       "arableArea": 2500,
       "vegetationArea": 2500,
-      "plantedCrops": [
-        "Café",
-        "Algodão",
-        "Milho"
-      ]
+      "plantedCrops": ["Café", "Algodão", "Milho"]
     },
     {
       "id": "0132e077-e6f0-4148-95d9-02a898620c1b",
@@ -79,9 +73,7 @@
       "area": 3000,
       "arableArea": 1500,
       "vegetationArea": 1500,
-      "plantedCrops": [
-        "Soja"
-      ]
+      "plantedCrops": ["Soja"]
     },
     {
       "id": "07ea2af1-1ecc-4202-a5d8-cfaef8219cad",
@@ -92,10 +84,7 @@
       "area": 5000,
       "arableArea": 2500,
       "vegetationArea": 2500,
-      "plantedCrops": [
-        "Algodão",
-        "Soja"
-      ]
+      "plantedCrops": ["Algodão", "Soja"]
     },
     {
       "id": "5064a870-c922-42ed-8306-901a8319f82d",
@@ -106,10 +95,7 @@
       "area": 5000,
       "arableArea": 2500,
       "vegetationArea": 2500,
-      "plantedCrops": [
-        "Algodão",
-        "Soja"
-      ]
+      "plantedCrops": ["Algodão", "Soja"]
     },
     {
       "id": "88d6d86e-ef3d-40f5-b4e3-28998cded5ea",
@@ -120,10 +106,7 @@
       "area": 5000,
       "arableArea": 2500,
       "vegetationArea": 2500,
-      "plantedCrops": [
-        "Algodão",
-        "Milho"
-      ]
+      "plantedCrops": ["Algodão", "Milho"]
     }
   ],
   "admins": [
@@ -144,9 +127,6 @@
       "name": "Fabio Cesar Firmino Costa",
       "email": "fabiocfc98@gmail.com",
       "password": "123456"
-    },
-    {
-      "id": 4
     }
   ]
 }
