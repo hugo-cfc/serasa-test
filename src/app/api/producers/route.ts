@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
       name: body.data.name,
       cpfcnpj: body.data.cpfcnpj,
     }),
-  }).then(async data => {
+  }).then(async (data) => {
     const updateData = await data.json();
 
     await fetch("http://localhost:4000/farms", {
@@ -40,9 +40,9 @@ export async function POST(req: NextRequest) {
         farmName: body.data.farmName,
         city: body.data.city,
         state: body.data.state,
-        area: body.data.area,
-        arableArea: body.data.arableArea,
-        vegetationArea: body.data.vegetationArea,
+        area: Number(body.data.area),
+        arableArea: Number(body.data.arableArea),
+        vegetationArea: Number(body.data.vegetationArea),
         plantedCrops: body.data.plantedCrops,
       }),
     });
