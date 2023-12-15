@@ -4,7 +4,6 @@ import Thead from "./Thead";
 import Th from "./Th";
 import Tr from "./Tr";
 import Td from "./Td";
-import Pagination from "./Pagination";
 
 export const Table = {
   Container: TableContainer,
@@ -13,5 +12,4 @@ export const Table = {
   Th,
   Tr,
   Td,
-  Pagination,
 };
