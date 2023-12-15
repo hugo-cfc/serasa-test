@@ -1,6 +1,5 @@
 import ByState from "./Components/ByState";
 import ByCrops from "./Components/ByCrops";
-import ByUseOfTheSoil from "./Components/ByUseOfTheSoil";
 import Farms from "./Components/Farms";
 import Area from "./Components/Area";
 
@@ -16,7 +15,6 @@ export default function Home() {
       <div className="flex justify-center flex-wrap gap-2">
         <ByState />
         <ByCrops />
-        <ByUseOfTheSoil />
       </div>
     </div>
   );
