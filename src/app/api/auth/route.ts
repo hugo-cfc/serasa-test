@@ -1,10 +1,10 @@
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
 
   const res = await fetch(
-    `http://localhost:4000/admins?email=${body.email}&password=${body.password}`,
+    `http://localhost:4000/admins?email=${body.data.email}&password=${body.data.password}`,
     {
       method: "GET",
       headers: {
@@ -14,6 +14,13 @@ export async function POST(req: NextRequest) {
   );
 
   const data = await res.json();
+
+  if (data.lenght === 0) {
+    return NextResponse.json(
+      { message: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
 
   return Response.json({
     token: btoa(
