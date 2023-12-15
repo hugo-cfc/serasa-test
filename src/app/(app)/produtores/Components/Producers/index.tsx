@@ -2,12 +2,17 @@
 
 import { useRouter } from "next/navigation";
 import { Edit, Trash } from "lucide-react";
+import { useQuery } from "react-query";
 
 import { Table } from "@/Components/Table";
 import formatCpf from "@/utils/formatCpf";
+import getProducers from "@/fetchers/producers/getProducers";
+import useProducers from "./useProducers";
 
 const Producers = () => {
   const router = useRouter();
+  const { data, isLoading } = useQuery("producers", () => getProducers());
+  const { deleteMutation } = useProducers();
 
   return (
     <Table.Root>
@@ -23,34 +28,55 @@ const Producers = () => {
       </Table.Thead>
 
       <tbody>
-        <Table.Tr>
-          <Table.Td
-            className="cursor-pointer"
-            onClick={() => router.push("/produtores/384793")}
-          >
-            HUGO CESAR FIRMINO COSTA
-          </Table.Td>
-          <Table.Td
-            className="cursor-pointer"
-            onClick={() => router.push("/produtores/384793")}
-          >
-            {formatCpf("11111111111")}
-          </Table.Td>
-          <Table.Td>FAZENDA TOTAL FORMA</Table.Td>
-          <Table.Td>MACEIÓ</Table.Td>
-          <Table.Td>AL</Table.Td>
-          <Table.Td>
-            <div className="flex">
-              <button onClick={() => router.push("/produtores/384793?edit")}>
-                <Edit className="text-sm w-5" />
-              </button>
+        {isLoading ? (
+          <>
+            {Array.from({ length: 5 }).map((_, index) => (
+              <Table.Tr key={index}>
+                <Table.Td isLoading={isLoading} />
+                <Table.Td isLoading={isLoading} />
+                <Table.Td isLoading={isLoading} />
+                <Table.Td isLoading={isLoading} />
+                <Table.Td isLoading={isLoading} />
+                <Table.Td isLoading={isLoading} />
+              </Table.Tr>
+            ))}
+          </>
+        ) : (
+          data?.map((producer) => (
+            <Table.Tr key={producer.id}>
+              <Table.Td
+                className="cursor-pointer"
+                onClick={() => router.push(`/produtores/${producer.id}`)}
+              >
+                {producer.name}
+              </Table.Td>
+              <Table.Td
+                className="cursor-pointer"
+                onClick={() => router.push(`/produtores/${producer.id}`)}
+              >
+                {formatCpf(producer.cpfcnpj)}
+              </Table.Td>
+              <Table.Td>{producer.farms[0].farmName}</Table.Td>
+              <Table.Td>{producer.farms[0].city}</Table.Td>
+              <Table.Td>{producer.farms[0].state}</Table.Td>
+              <Table.Td>
+                <div className="flex">
+                  <button
+                    onClick={() =>
+                      router.push(`/produtores/${producer.id}?edit`)
+                    }
+                  >
+                    <Edit className="text-sm w-5" />
+                  </button>
 
-              <button>
-                <Trash className="text-red-600 w-5" />
-              </button>
-            </div>
-          </Table.Td>
-        </Table.Tr>
+                  <button onClick={() => deleteMutation.mutate(producer.id)}>
+                    <Trash className="text-red-600 w-5" />
+                  </button>
+                </div>
+              </Table.Td>
+            </Table.Tr>
+          ))
+        )}
       </tbody>
     </Table.Root>
   );

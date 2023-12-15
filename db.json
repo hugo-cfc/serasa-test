@@ -3,7 +3,32 @@
     {
       "id": 1,
       "name": "Hugo Cesar Firmino Costa",
-      "cpf": "11111111111"
+      "cpfcnpj": "93773196091",
+      "farms": [
+        {
+          "farmName": "Fazenda Colheitas",
+          "city": "Maceió",
+          "state": "AL",
+          "area": 5000,
+          "arableArea": 5000,
+          "vegetationArea": 5000
+        }
+      ]
+    },
+    {
+      "id": "41147b3d-bfcc-4905-87d8-80fbba033c08",
+      "name": "Hugo Cesar Firmino Costa",
+      "cpfcnpj": "937.731.960-91"
+    },
+    {
+      "id": "004a85f0-1bed-4e52-854d-be5b430ff042",
+      "name": "João Cesar Firmino Costa",
+      "cpfcnpj": "937.731.960-91"
+    },
+    {
+      "id": "a9ea18d8-5c2e-4820-9dda-ef70b1560dee",
+      "name": "Marcos Cesar Firmino Costa",
+      "cpfcnpj": "937.731.960-91"
     }
   ],
   "farms": [
@@ -16,7 +41,51 @@
       "area": 5000,
       "arableArea": 5000,
       "vegetationArea": 5000,
-      "plantedCrops": ["Soja", "Milho"]
+      "plantedCrops": [
+        "Milho"
+      ]
+    },
+    {
+      "id": "86636bd6-dbbf-47be-b1e0-30deeece5cbe",
+      "producerId": "41147b3d-bfcc-4905-87d8-80fbba033c08",
+      "farmName": "Fazenda De Santa",
+      "city": "Maceió",
+      "state": "AL",
+      "area": "5000",
+      "arableArea": "2500",
+      "vegetationArea": "2500",
+      "plantedCrops": [
+        "Café",
+        "Algodão",
+        "Milho"
+      ]
+    },
+    {
+      "id": "0132e077-e6f0-4148-95d9-02a898620c1b",
+      "producerId": "004a85f0-1bed-4e52-854d-be5b430ff042",
+      "farmName": "Fazenda do Erro",
+      "city": "Maceió",
+      "state": "AL",
+      "area": "3000",
+      "arableArea": "1500",
+      "vegetationArea": "1500",
+      "plantedCrops": [
+        "Soja"
+      ]
+    },
+    {
+      "id": "07ea2af1-1ecc-4202-a5d8-cfaef8219cad",
+      "producerId": "a9ea18d8-5c2e-4820-9dda-ef70b1560dee",
+      "farmName": "Fazenda State",
+      "city": "Maceió",
+      "state": "AM",
+      "area": "5000",
+      "arableArea": "2500",
+      "vegetationArea": "2500",
+      "plantedCrops": [
+        "Algodão",
+        "Soja"
+      ]
     }
   ],
   "admins": [

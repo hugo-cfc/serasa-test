@@ -1,20 +1,59 @@
 "use client";
 
+import { Controller } from "react-hook-form";
+
+import DataCard from "@/Components/DataCard";
 import Input from "@/Components/Input";
 import Button from "@/Components/Button";
+import Select from "@/Components/Select";
+import { InfiniteDropdown } from "@/Components/InfiniteDropdown";
 
 import useFormHook from "./useFormHook";
-import DataCard from "@/app/(app)/produtores/Components/DataCard";
+
 import formatCpf from "@/utils/formatCpf";
 import formatCnpj from "@/utils/formatCnpj";
+import states from "@/utils/states";
 
 const Form = () => {
-  const { formUtils, router } = useFormHook();
-  const { handleSubmit, handleForm, register, errors } = formUtils;
+  const { formUtils, router, isEdit, isCreate, handleEdit, deleteMutation } =
+    useFormHook();
+  const {
+    handleSubmit,
+    handleForm,
+    register,
+    errors,
+    cropsOptions,
+    handleAddCrop,
+    crops,
+  } = formUtils;
 
   return (
     <DataCard className="desktop:w-[80vw]">
-      <h1 className="tablet:text-xl font-bold mb-2 min-w-[80vw]">Produtores</h1>
+      <div className="flex justify-between items-center">
+        <h1 className="tablet:text-xl font-bold mb-2">Produtor</h1>
+
+        <div className="flex gap-x-2">
+          {!isEdit && !isCreate && (
+            <Button
+              variant="filledSecondary"
+              type="button"
+              onClick={handleEdit}
+            >
+              Editar
+            </Button>
+          )}
+
+          {!isCreate && (
+            <Button
+              variant="filledWarning"
+              type="button"
+              onClick={() => deleteMutation.mutate()}
+            >
+              Excluir
+            </Button>
+          )}
+        </div>
+      </div>
 
       <form
         className="grid grid-cols-12 gap-x-2 gap-y-2"
@@ -25,6 +64,7 @@ const Form = () => {
         </h2>
 
         <Input
+          disabled={!isEdit && !isCreate}
           containerStyle="col-start-1 col-end-13 tablet:col-end-8"
           {...register("name")}
           label="Nome"
@@ -33,17 +73,18 @@ const Form = () => {
         />
 
         <Input
+          disabled={!isEdit && !isCreate}
           containerStyle="tablet:col-start-8 col-start-1 col-end-13 notebook:col-end-11"
-          {...register("cpf")}
+          {...register("cpfcnpj")}
           label="CPF ou CNPJ"
           type="text"
-          helperText={errors.cpf?.message}
+          helperText={errors.cpfcnpj?.message}
           onChange={(event) => {
             const { value } = event.target;
 
             if (value.length === 0) return "";
 
-            if (value.length > 11) {
+            if (value.length > 14) {
               return (event.target.value = formatCnpj(value)!);
             }
 
@@ -56,6 +97,7 @@ const Form = () => {
         </h2>
 
         <Input
+          disabled={!isEdit && !isCreate}
           containerStyle="col-start-1 col-end-13 notebook:col-end-7"
           {...register("farmName")}
           label="Nome da Fazenda"
@@ -63,6 +105,7 @@ const Form = () => {
           helperText={errors.farmName?.message}
         />
         <Input
+          disabled={!isEdit && !isCreate}
           containerStyle="col-start-1 col-end-8 notebook:col-start- notebook:col-end-11"
           {...register("city")}
           label="Cidade"
@@ -70,15 +113,23 @@ const Form = () => {
           helperText={errors.city?.message}
         />
 
-        <Input
-          containerStyle="col-start-8 col-end-13 tablet:col-end-11 notebook:col-start-11 notebook:col-end-13"
-          {...register("state")}
-          label="Estado"
-          type="text"
-          helperText={errors.state?.message}
+        <Controller
+          name="state"
+          control={formUtils.control}
+          render={({ field }) =>
+            <Select
+              {...field}
+              containerStyle="col-start-8 col-end-13 tablet:col-end-11 notebook:col-start-11 notebook:col-end-13"
+              options={states}
+              label="Estado"
+              helperText={errors.state?.message}
+              disabled={!isEdit && !isCreate}
+            />
+          }
         />
 
         <Input
+          disabled={!isEdit && !isCreate}
           containerStyle="col-start-1 col-end-13 tablet:col-end-7 notebook:col-end-4"
           {...register("area")}
           label="Área total em hectares"
@@ -87,6 +138,7 @@ const Form = () => {
         />
 
         <Input
+          disabled={!isEdit && !isCreate}
           containerStyle="col-start-1 tablet:col-start-7 col-end-13 notebook:col-start-4 notebook:col-end-7"
           {...register("arableArea")}
           label="Área agricultável em hectares"
@@ -95,6 +147,7 @@ const Form = () => {
         />
 
         <Input
+          disabled={!isEdit && !isCreate}
           containerStyle="col-start-1 col-end-13 tablet:col-end-7 notebook:col-start-7 notebook:col-end-10"
           {...register("vegetationArea")}
           label="Área de vegetação em hectares"
@@ -102,16 +155,32 @@ const Form = () => {
           helperText={errors.vegetationArea?.message}
         />
 
-        <Input
-          containerStyle="col-start-1 tablet:col-start-7 col-end-13 notebook:col-start-10 notebook:col-end-13"
-          {...register("plantedCrops")}
+        <InfiniteDropdown.Root
           label="Culturas plantadas"
-          type="text"
-          helperText={errors.plantedCrops?.message}
-        />
+          placeholder="Selecionar"
+          value={crops}
+          containerStyle="col-start-1 tablet:col-start-7 col-end-13 notebook:col-start-10 notebook:col-end-13"
+          onClickValue={handleAddCrop}
+          readonly={!isEdit && !isCreate}
+        >
+          {cropsOptions.map((item) => (
+            <InfiniteDropdown.Item
+              key={item}
+              onClick={() => handleAddCrop(item)}
+            >
+              {item}
+            </InfiniteDropdown.Item>
+          ))}
+        </InfiniteDropdown.Root>
 
         <div className="col-start-1 col-end-13 flex justify-start gap-x-2 mt-4">
-          <Button type="submit">Confirmar</Button>
+          <Button
+            type="submit"
+            variant="filledSecondary"
+            disabled={!isEdit && !isCreate}
+          >
+            Confirmar
+          </Button>
 
           <Button
             variant="filledWarning"

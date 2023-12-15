@@ -3,6 +3,7 @@ import { button } from "./style";
 
 type variants =
   | "filledDefault"
+  | "filledSecondary"
   | "outlined"
   | "text"
   | "filledWarning"
