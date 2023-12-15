@@ -4,7 +4,7 @@ import { fetchWrapper } from "@/services/fetchWrapper";
 
 const getFarms = async () => {
   const { data } = await fetchWrapper<{ data:Farm[] }>(
-    "/farms"
+    "/farms", {cache: "reload"}
   );
 
   return data;

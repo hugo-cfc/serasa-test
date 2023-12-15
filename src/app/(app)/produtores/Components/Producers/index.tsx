@@ -7,10 +7,12 @@ import { useQuery } from "react-query";
 import { Table } from "@/Components/Table";
 import formatCpf from "@/utils/formatCpf";
 import getProducers from "@/fetchers/producers/getProducers";
+import useProducers from "./useProducers";
 
 const Producers = () => {
   const router = useRouter();
   const { data, isLoading } = useQuery("producers", () => getProducers());
+  const { deleteMutation } = useProducers();
 
   return (
     <Table.Root>
@@ -67,7 +69,7 @@ const Producers = () => {
                     <Edit className="text-sm w-5" />
                   </button>
 
-                  <button>
+                  <button onClick={() => deleteMutation.mutate(producer.id)}>
                     <Trash className="text-red-600 w-5" />
                   </button>
                 </div>

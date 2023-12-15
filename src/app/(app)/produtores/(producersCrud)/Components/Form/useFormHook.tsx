@@ -9,7 +9,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSnackbar } from "notistack";
 import { useForm } from "react-hook-form";
-import { useQuery, useMutation } from "react-query";
+import { useQuery, useMutation, useQueryClient } from "react-query";
 
 import formatCpf from "@/utils/formatCpf";
 import isValidCpf from "@/utils/isValidCpf";
@@ -19,8 +19,10 @@ import getProducerById from "@/fetchers/producers/getProducerById";
 import patchProducer from "@/fetchers/producers/patchProducer";
 import Producer from "@/types/Producer";
 import postProducer from "@/fetchers/producers/postProducer";
+import deleteProducer from "@/fetchers/producers/deleteProducer";
 
 const useFormHook = () => {
+  const queryClient = useQueryClient();
   const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -91,8 +93,31 @@ const useFormHook = () => {
     },
   });
 
+  const deleteMutation = useMutation<unknown, Error>({
+    mutationFn: () => {
+      return deleteProducer(id);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["producers"] });
+
+      enqueueSnackbar({
+        variant: "success",
+        message: "Produtor excluído com sucesso!",
+      });
+
+      router.push("/produtores");
+    },
+
+    onError: () => {
+      enqueueSnackbar({
+        variant: "error",
+        message: "Erro ao excluir produtor!",
+      });
+    },
+  });
+
   const isCreate = searchParams.has("isCreate");
-  const isEdit = searchParams.has("edit") || isCreate;
+  const isEdit = searchParams.has("edit");
 
   const schema = z.object({
     name: z.string().min(6, { message: "Digite o nome completo" }),
@@ -109,11 +134,27 @@ const useFormHook = () => {
     farmName: z.string().min(6, { message: "Digite o nome completo" }),
     city: z.string().min(6, { message: "Digite a cidade" }),
     state: z.string().min(2, { message: "Informe o estado" }),
-    // area: z.number().min(2, { message: "Informe a área" }),
-    // arableArea: z.number().min(1, { message: "Informe a área agricultável" }),
-    // vegetationArea: z
-    //   .number()
-    //   .min(1, { message: "Informe a área de vegetação em hectares" }),
+    area: z
+      .string()
+      .min(1, { message: "Informe a área" })
+      .refine(
+        (value) => {
+          const { arableArea, vegetationArea } = getValues();
+          const totalArea = Number(arableArea) + Number(vegetationArea);
+          if (totalArea > Number(value)) {
+            return false;
+          }
+          return true;
+        },
+        {
+          message:
+            "Soma de área agrícultável e vegetação maior que sua área total",
+        }
+      ),
+    arableArea: z.string().min(1, { message: "Informe a área agricultável" }),
+    vegetationArea: z
+      .string()
+      .min(1, { message: "Informe a área de vegetação em hectares" }),
     plantedCrops: z
       .array(z.string())
       .nonempty({ message: "Escolha pelo menos uma opção" }),
@@ -126,6 +167,7 @@ const useFormHook = () => {
     reset,
     formState: { errors },
     setValue,
+    getValues,
   } = useForm<FormProps>({
     mode: "all",
     resolver: zodResolver(schema),
@@ -142,9 +184,9 @@ const useFormHook = () => {
       farmName: data?.farms[0].farmName,
       city: data?.farms[0].city,
       state: data?.farms[0].state,
-      // area: data?.farms[0].area,
-      // arableArea: data?.farms[0].arableArea,
-      // vegetationArea: data?.farms[0].vegetationArea,
+      area: String(data?.farms[0].area),
+      arableArea: String(data?.farms[0].arableArea),
+      vegetationArea: String(data?.farms[0].vegetationArea),
       plantedCrops: data?.farms[0].plantedCrops,
     });
 
@@ -157,8 +199,6 @@ const useFormHook = () => {
 
     router.push(`${pathname}?${queryParams}`);
   }, [searchParams, pathname]);
-
-  const handleDelete = useCallback(() => {}, []);
 
   const handleAddCrop = (crop: string) => {
     if (crops?.includes(crop)) {
@@ -211,8 +251,8 @@ const useFormHook = () => {
     isEdit,
     isCreate,
     handleEdit,
-    handleDelete,
     data,
+    deleteMutation,
   };
 };
 

@@ -11,7 +11,7 @@ import formatCnpj from "@/utils/formatCnpj";
 import { InfiniteDropdown } from "@/Components/InfiniteDropdown";
 
 const Form = () => {
-  const { formUtils, router, isEdit, isCreate, handleEdit, handleDelete } =
+  const { formUtils, router, isEdit, isCreate, handleEdit, deleteMutation } =
     useFormHook();
   const {
     handleSubmit,
@@ -29,7 +29,7 @@ const Form = () => {
         <h1 className="tablet:text-xl font-bold mb-2">Produtor</h1>
 
         <div className="flex gap-x-2">
-          {!isEdit && (
+          {!isEdit && !isCreate && (
             <Button
               variant="filledSecondary"
               type="button"
@@ -43,7 +43,7 @@ const Form = () => {
             <Button
               variant="filledWarning"
               type="button"
-              onClick={handleDelete}
+              onClick={() => deleteMutation.mutate()}
             >
               Excluir
             </Button>
@@ -60,7 +60,7 @@ const Form = () => {
         </h2>
 
         <Input
-          disabled={!isEdit}
+          disabled={!isEdit && !isCreate}
           containerStyle="col-start-1 col-end-13 tablet:col-end-8"
           {...register("name")}
           label="Nome"
@@ -69,7 +69,7 @@ const Form = () => {
         />
 
         <Input
-          disabled={!isEdit}
+          disabled={!isEdit && !isCreate}
           containerStyle="tablet:col-start-8 col-start-1 col-end-13 notebook:col-end-11"
           {...register("cpfcnpj")}
           label="CPF ou CNPJ"
@@ -93,7 +93,7 @@ const Form = () => {
         </h2>
 
         <Input
-          disabled={!isEdit}
+          disabled={!isEdit && !isCreate}
           containerStyle="col-start-1 col-end-13 notebook:col-end-7"
           {...register("farmName")}
           label="Nome da Fazenda"
@@ -101,7 +101,7 @@ const Form = () => {
           helperText={errors.farmName?.message}
         />
         <Input
-          disabled={!isEdit}
+          disabled={!isEdit && !isCreate}
           containerStyle="col-start-1 col-end-8 notebook:col-start- notebook:col-end-11"
           {...register("city")}
           label="Cidade"
@@ -110,7 +110,7 @@ const Form = () => {
         />
 
         <Input
-          disabled={!isEdit}
+          disabled={!isEdit && !isCreate}
           containerStyle="col-start-8 col-end-13 tablet:col-end-11 notebook:col-start-11 notebook:col-end-13"
           {...register("state")}
           label="Estado"
@@ -118,17 +118,17 @@ const Form = () => {
           helperText={errors.state?.message}
         />
 
-        {/* <Input
-          disabled={!isEdit}
+        <Input
+          disabled={!isEdit && !isCreate}
           containerStyle="col-start-1 col-end-13 tablet:col-end-7 notebook:col-end-4"
           {...register("area")}
           label="Área total em hectares"
-          type="number"
+          type="text"
           helperText={errors.area?.message}
         />
 
         <Input
-          disabled={!isEdit}
+          disabled={!isEdit && !isCreate}
           containerStyle="col-start-1 tablet:col-start-7 col-end-13 notebook:col-start-4 notebook:col-end-7"
           {...register("arableArea")}
           label="Área agricultável em hectares"
@@ -137,13 +137,13 @@ const Form = () => {
         />
 
         <Input
-          disabled={!isEdit}
+          disabled={!isEdit && !isCreate}
           containerStyle="col-start-1 col-end-13 tablet:col-end-7 notebook:col-start-7 notebook:col-end-10"
           {...register("vegetationArea")}
           label="Área de vegetação em hectares"
           type="text"
           helperText={errors.vegetationArea?.message}
-        /> */}
+        />
 
         <InfiniteDropdown.Root
           label="Culturas plantadas"
@@ -151,7 +151,7 @@ const Form = () => {
           value={crops}
           containerStyle="col-start-1 tablet:col-start-7 col-end-13 notebook:col-start-10 notebook:col-end-13"
           onClickValue={handleAddCrop}
-          readonly={!isEdit}
+          readonly={!isEdit && !isCreate}
         >
           {cropsOptions.map((item) => (
             <InfiniteDropdown.Item
@@ -164,7 +164,11 @@ const Form = () => {
         </InfiniteDropdown.Root>
 
         <div className="col-start-1 col-end-13 flex justify-start gap-x-2 mt-4">
-          <Button type="submit" variant="filledSecondary" disabled={!isEdit}>
+          <Button
+            type="submit"
+            variant="filledSecondary"
+            disabled={!isEdit && !isCreate}
+          >
             Confirmar
           </Button>
 

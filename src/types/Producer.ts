@@ -1,7 +1,7 @@
 import Farm from "./Farm";
 
 export default interface Producer {
-  id: number;
+  id: string;
   name: string;
   cpfcnpj: string;
   farms: Farm[]

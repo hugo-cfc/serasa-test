@@ -15,6 +15,22 @@ export async function GET(req: NextRequest,
   return Response.json({ data });
 }
 
+export async function DELETE(req: NextRequest,
+  { params }: { params: { id: string } }) {
+  const producerId = params.id;
+
+  const res = await fetch(`http://localhost:4000/producers/${producerId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  const data = await res.json();
+
+  return Response.json({ data });
+}
+
 export async function PATCH(req: NextRequest,
   { params }: { params: { id: string } }) {
   const producerId = params.id;
