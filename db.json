@@ -29,6 +29,11 @@
       "id": "a9ea18d8-5c2e-4820-9dda-ef70b1560dee",
       "name": "Marcos Cesar Firmino Costa",
       "cpfcnpj": "937.731.960-91"
+    },
+    {
+      "id": "1b69982b-76b5-4a49-8ed8-2077c201a313",
+      "name": "Fernadno Cesar Firmino Costa",
+      "cpfcnpj": "937.731.960-91"
     }
   ],
   "farms": [
@@ -79,6 +84,20 @@
       "farmName": "Fazenda State",
       "city": "Maceió",
       "state": "AM",
+      "area": "5000",
+      "arableArea": "2500",
+      "vegetationArea": "2500",
+      "plantedCrops": [
+        "Algodão",
+        "Soja"
+      ]
+    },
+    {
+      "id": "5064a870-c922-42ed-8306-901a8319f82d",
+      "producerId": "1b69982b-76b5-4a49-8ed8-2077c201a313",
+      "farmName": "Fazenda Paulista",
+      "city": "Campinas",
+      "state": "SP",
       "area": "5000",
       "arableArea": "2500",
       "vegetationArea": "2500",
