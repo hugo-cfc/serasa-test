@@ -1,14 +1,18 @@
 "use client";
 
+import { Controller } from "react-hook-form";
+
+import DataCard from "@/Components/DataCard";
 import Input from "@/Components/Input";
 import Button from "@/Components/Button";
+import Select from "@/Components/Select";
+import { InfiniteDropdown } from "@/Components/InfiniteDropdown";
 
 import useFormHook from "./useFormHook";
 
-import DataCard from "@/Components/DataCard";
 import formatCpf from "@/utils/formatCpf";
 import formatCnpj from "@/utils/formatCnpj";
-import { InfiniteDropdown } from "@/Components/InfiniteDropdown";
+import states from "@/utils/states";
 
 const Form = () => {
   const { formUtils, router, isEdit, isCreate, handleEdit, deleteMutation } =
@@ -109,13 +113,19 @@ const Form = () => {
           helperText={errors.city?.message}
         />
 
-        <Input
-          disabled={!isEdit && !isCreate}
-          containerStyle="col-start-8 col-end-13 tablet:col-end-11 notebook:col-start-11 notebook:col-end-13"
-          {...register("state")}
-          label="Estado"
-          type="text"
-          helperText={errors.state?.message}
+        <Controller
+          name="state"
+          control={formUtils.control}
+          render={({ field }) =>
+            <Select
+              {...field}
+              containerStyle="col-start-8 col-end-13 tablet:col-end-11 notebook:col-start-11 notebook:col-end-13"
+              options={states}
+              label="Estado"
+              helperText={errors.state?.message}
+              disabled={!isEdit && !isCreate}
+            />
+          }
         />
 
         <Input
